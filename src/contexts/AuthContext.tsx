@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useState, useEffect, ReactNode } from "react";
 
 export type User = {
   name: string;
@@ -14,20 +14,18 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   login: () => false,
-  logout: () => {}
+  logout: () => {},
 });
 
-// Function to validate login credentials. It is exported for unit testing purposes.
 export const validateLogin = (email: string, password: string): boolean => {
-  // Hardcoded credentials for demonstration
-  return email === 'user@example.com' && password === 'password';
+  return email === "user@example.com" && password === "password";
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -35,9 +33,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (email: string, password: string): boolean => {
     if (validateLogin(email, password)) {
-      const userData = { name: 'User Name', email };
+      const userData = { name: "User Name", email };
       setUser(userData);
-      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem("user", JSON.stringify(userData));
       return true;
     }
     return false;
@@ -45,7 +43,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
   };
 
   return (
