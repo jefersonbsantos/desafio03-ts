@@ -1,8 +1,9 @@
 interface IDIoBank {
     login: boolean;
+    user?: { name: string; email: string } | null;
 }
 
-const dioBank = {
+const dioBank: IDIoBank = {
     login: false
 }
 
